@@ -1,0 +1,7 @@
+{
+    "CertServer": "https://ssh-ca.example.com",
+    "SignOptions": {
+        "Environment": "server",
+        "APIKey": "RANDOM_STRING"
+    }
+}

@@ -1,0 +1,56 @@
+{
+    "Evironments": [
+        {
+            "Name": "production",
+            "CAKeyFile": "/etc/ssh-ca/ssh_ca_production",
+            "SystemGroup": "production",
+            "UserKey": true,
+            "SignOptions": {
+                "KeyID": "USERNAME@example.com",
+                "ValidPrincipals": [
+                    "root"
+                ],
+                "Extensions": {
+                    "permit-X11-forwarding": "",
+                    "permit-agent-forwarding": "",
+                    "permit-port-forwarding": "",
+                    "permit-pty": "",
+                    "permit-user-rc": ""
+                }
+            }
+        },
+        {
+            "Name": "dev",
+            "CAKeyFile": "/etc/ssh-ca/ssh_ca_dev",
+            "SystemGroup": "dev",
+            "UserKey": true,
+            "SignOptions": {
+                "KeyID": "USERNAME@example.com",
+                "ValidPrincipals": [
+                    "root"
+                ],
+                "Extensions": {
+                    "permit-X11-forwarding": "",
+                    "permit-agent-forwarding": "",
+                    "permit-port-forwarding": "",
+                    "permit-pty": "",
+                    "permit-user-rc": ""
+                }
+            }
+        },
+        {
+            "Name": "server",
+            "CAKeyFile": "/etc/ssh-ca/ssh_ca_server",
+            "APIServer": true,
+            "APIKey": "RANDOM_STRING",
+            "APIWhitelist": [
+                "1.1.1.0/24"
+            ],
+            "HostKey": true,
+            "SignOptions": {
+                "AllowAPIOverrideKeyID": true,
+                "Duration": 31557600
+            }
+        }
+    ]
+}
