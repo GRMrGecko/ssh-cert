@@ -1,0 +1,11 @@
+{
+    "CertServer": "https://ssh-ca.example.com",
+    "SignOptions": {
+        "Environment": "server",
+        "APIKey": "RANDOM_STRING",
+        "KeyPath": "/etc/ssh-ca/id_server_cert",
+        "UID": 993,
+        "GID": 989,
+        "Duration": 86400
+    }
+}
