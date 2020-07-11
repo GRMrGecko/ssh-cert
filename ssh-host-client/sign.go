@@ -169,6 +169,12 @@ func sign(c *cli.Context) error {
 				// We pull the configuration name.
 				conf := line[:i]
 
+				// If we find a Match configuration, we want to stop here as anything below this line is specific to the match.
+				if conf == "Match" {
+					lastReadLine = line
+					break
+				}
+
 				// If we found the host keys already, we check to see if this line is another host key or host certificate.
 				//  If it is not, we are done reading at this point and we need to store the line for writing after we isnert our config.
 				if foundHostKeys && conf != "HostKey" && conf != "HostCertificate" {
@@ -240,8 +246,20 @@ func sign(c *cli.Context) error {
 			newConfig.WriteString(line)
 		}
 
-		// We can finialize the new configuration file and replace the old one.
+		// Check new configuration.
 		newConfig.Close()
+		fileinfo, err := os.Stat(sshdConfig + "_new")
+		if err != nil {
+			return err
+		}
+
+		// If new configuration is smaller than 256 bytes, something happened...
+		if fileinfo.Size() <= 256 {
+			os.Remove(sshdConfig + "_new")
+			return fmt.Errorf("File size of new ssd_config is too small.")
+		}
+
+		// We can now replace the old configuration with new modified configuration.
 		err = os.Rename(sshdConfig+"_new", sshdConfig)
 		if err != nil {
 			return err
